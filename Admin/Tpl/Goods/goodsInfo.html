@@ -1,0 +1,79 @@
+<include file="./Admin/Tpl/Index/header.html"/>			
+
+<include file="./Admin/Tpl/Index/left.html"/>	
+
+<script>
+			
+			function del()
+			{
+			    if(confirm("确定要删除吗？"))
+			    {
+			        return true;
+			    }
+			    else
+			    {
+			        return false;
+			    }
+			}
+			
+			$(function(){
+			
+				//提交表单
+				$('#search').click(function(){
+					$('form[name="searchGoodsForm"]').submit();
+				});
+			});
+			
+			
+		</script>
+		
+	<div class="diywap_right">
+
+		<div class="well well-sm">商品列表</div>
+					
+					<form  name="searchGoodsForm" action="__APP__/Goods/searchGoods"  method="get" >
+		<div>
+		
+			商品类别名称:<input type='text' name='goodstypename' value="<{$_GET['goodstypename']}>"/>
+			商品名称: <input type='text' name='goodstitle' value="<{$_GET['goodstitle']}>"/>
+			 		 
+			<button type="submit" class="btn btn-primary btn-lg" id="search">查询</button>
+		</div>
+		</form>
+		</br>
+		
+		<table class="table table-hover table-bordered">
+			<tr>
+				<th>序号</th>
+				<th>商品类别名称</th>
+				<th>商品名称</th>
+				<th>商品描述</th>
+				<th>商品图片</th>
+				<th>操作</th>
+			</tr>
+			<volist name='data' id='vo'>
+				<tr class="active">
+					<td><{$i}></td>
+					<td><{$vo.goodstypename}></td>
+					<td width="200px"><{$vo.goodstitle}></td>
+					<td width="250px"><{$vo.goodscontent}></td>
+					<td><img src="__PUBLIC__/Uploads/<{$vo.goodspic}>" width="200px" height="200px"/></td>
+					
+					<td><a href="__APP__/Goods/doDel/id/<{$vo.id}>" onclick='return del();'>删除</a>|<a href="__APP__/Goods/modifyGoods/id/<{$vo.id}>">修改</a></td>
+				</tr>
+			</volist>
+
+		</table>
+		
+		</br>
+		<div style="text-align:center;"><{$page}></div>
+
+			</div>
+
+		
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>威虎科技博饼系统体验平台</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<load href="__PUBLIC__/Css/style_pc.css"/>
+<load href="__PUBLIC__/Js/sign.js"/>
+<load href="__PUBLIC__/Js/FormCheck_Jquery.js"/>
+<load href="__PUBLIC__/Js/jquery-1.5.1.min.js"/>
+<load href="__PUBLIC__/Js/wxShare.js"/>
+		
+</head>
+<body>
+		
+		<div class="login">
+			<div class="title"><img src="http://www.wayhu.com/templets/default/images/small_logo.jpg" width="60px" height="50px"/><span>威虎科技博饼系统体验平台</span></div>
+			<div class="info">
+			
+			 
+			 
+			<div class="name">
+				<span>姓&nbsp;名</span><input type="text" tabindex="1" class="input" id="name" />
+			</div>
+			<div class="phone">
+				<span>电&nbsp;话</span><input type="text" tabindex="2" class="input" id="phone" />
+			</div>
+			
+			<div class="sub" onClick="sub();" tabindex="3" onkeypress="if (event.keyCode == 13)sub()">
+				<span>开始博饼</span>
+			</div>
+			
+			
+			
+			<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone">QQ空间</a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina">新浪微博</a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq">腾讯微博</a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren">人人网</a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin">微信</a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+			
+			<div class="about">版权所有：威虎科技工作室  <a href="www.wayhu.com">www.wayhu.com</a>
+	   QQ：1599675606<a title="在线咨询" target="_self" rel="nofollow" onclick="MM_openBrWindow('http://qiao.baidu.com/v3/?module=default&controller=im&action=index&ucid=3713624&type=n&siteid=5060358')" href="javascript:;">（合作咨询）</a>
+			</div>
+			
+			</div>
+		</div>	
+		
+		
+
+			
+	</body>
+</html>
+
+<!--CNZZ-->
+<span style="display:none">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000523831'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1000523831%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</span>
+
+<script language="JavaScript" type="text/JavaScript"> 
+    function MM_openBrWindow(theURL,winName,features) {window.open(theURL,winName,features);}
+</script>
+
+
+<!--百度商桥-->
+<span style="display:none">
+<script type="text/javascript"> var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F438b523e74cd60c2b0bcecf1709a66c1' type='text/javascript'%3E%3C/script%3E")) </script>
+</span>
