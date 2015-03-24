@@ -3,25 +3,22 @@
 		
 		public function goodsInfo(){
 			
-			$GoodsType=M('Goods');
-			
-			//获取排行
-			$Model = new Model(); // 实例化一个model对象 没有对应任何数据表
-			
-			$query_str='select g.id as id,g.goodstitle as goodstitle ,g.goodscontent as goodscontent,g.goodspic as goodspic,t.goodstypename as goodstypename from tp_goods g join tp_goodstype t on g.goodstypeid=t.id order by g.id desc';
-			$queryResult = $Model->query($query_str);
+			$Goods=M('Prizeset');
 			
 			
+			$queryResult = $Goods->select();
+			$chance = $Goods->sum('chance');
+
 			import('ORG.Util.Page');// 导入分页类
 			$count      = count($queryResult);// 查询满足要求的总记录数
 			$Page       = new Page($count,C('GOODSPOINT_PAGE_COUNT'));// 实例化分页类 传入总记录数和每页显示的记录数
 			$show       = $Page->show();// 分页显示输出
 			// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
 			
-			$query_str1='select g.id as id,g.goodstitle as goodstitle ,g.goodscontent as goodscontent,g.goodspic as goodspic,t.goodstypename as goodstypename from tp_goods g join tp_goodstype t on g.goodstypeid=t.id order by g.id desc';
-			$query_str1.=" limit ".$Page->firstRow.",".$Page->listRows;
-			$list = $Model->query($query_str1);
 			
+			$list = $Goods->limit($Page->firstRow.','.$Page->listRows)->select();
+			
+            $this->assign('chance',$chance);
 			$this->assign('data',$list);// 赋值数据集
 			$this->assign('page',$show);// 赋值分页输出
 			$this->display(); // 输出模板

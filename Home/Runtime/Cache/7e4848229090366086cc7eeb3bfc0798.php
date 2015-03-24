@@ -1,4 +1,4 @@
-
+<?php if (!defined('THINK_PATH')) exit();?>
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -7,12 +7,12 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
 <title>摇一摇</title>
-<load href="./public/css/font.css?v=20140906" />
-<load href="./public/css/weiba.new.css?v=20140906" />
-<load href="./public/css/shake.css" />
-<load href="./public/css/alertify.css" />
-<load href="./public/css/jquery.alerts.css" />
-<load href="./public/js/jquery.alerts.js" />
+
+
+<link rel="stylesheet" type="text/css" href="./public/css/shake.css" />
+<link rel="stylesheet" type="text/css" href="./public/css/alertify.css" />
+<link rel="stylesheet" type="text/css" href="./public/css/jquery.alerts.css" />
+<script type="text/javascript" src="./public/js/jquery.alerts.js"></script>
 
 
 <style>
@@ -142,10 +142,10 @@ body{
 }
 </style>
 
-<load href="./public/js/jquery-1.10.2.min.js" />
-<load href="./public/js/jquery.mobile.events.min.js" />
-<load href="./public/js/jquery.alerts.js" />
-<load href="./public/js/alertify.min.js" />
+<script type="text/javascript" src="./public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="./public/js/jquery.mobile.events.min.js"></script>
+<script type="text/javascript" src="./public/js/jquery.alerts.js"></script>
+<script type="text/javascript" src="./public/js/alertify.min.js"></script>
 
 
 <script type="text/javascript">

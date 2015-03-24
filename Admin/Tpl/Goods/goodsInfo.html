@@ -41,23 +41,26 @@
 		</div>
 		</form>
 		</br>
-		
+		<if condition="$chance neq 100">            
+            <p><font color="red">“获奖概率”总合应为 "100"，现为 "<{$chance}> ",请修改!</font></p>
+        </if>
 		<table class="table table-hover table-bordered">
 			<tr>
 				<th>序号</th>
-				<th>商品类别名称</th>
-				<th>商品名称</th>
-				<th>商品描述</th>
-				<th>商品图片</th>
+				<th>奖项名称</th>
+                <th>奖品名称</th>
+                <th>奖品数量</th>
+				<th>获奖概率</th>
 				<th>操作</th>
 			</tr>
 			<volist name='data' id='vo'>
 				<tr class="active">
 					<td><{$i}></td>
-					<td><{$vo.goodstypename}></td>
-					<td width="200px"><{$vo.goodstitle}></td>
-					<td width="250px"><{$vo.goodscontent}></td>
-					<td><img src="__PUBLIC__/Uploads/<{$vo.goodspic}>" width="200px" height="200px"/></td>
+					<td><{$vo.prizename}></td>
+					<td width="100px"><{$vo.prizecontent}></td>
+					<td width="100px"><{$vo.prizenum}></td>
+                    <td width="100px"><{$vo.chance}></td>
+					
 					
 					<td><a href="__APP__/Goods/doDel/id/<{$vo.id}>" onclick='return del();'>删除</a>|<a href="__APP__/Goods/modifyGoods/id/<{$vo.id}>">修改</a></td>
 				</tr>
