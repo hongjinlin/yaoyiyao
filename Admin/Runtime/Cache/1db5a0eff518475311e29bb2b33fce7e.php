@@ -56,14 +56,12 @@
 			
 				<?php if($_SESSION['role']== 'level_1_admin' ): ?><h4>
 					<a class="list-group-item active navbar-link " data-toggle="collapse"  data-parent="#accordion" href="#collapseOne">
-					商品管理  <span class="glyphicon  glyphicon-arrow-down"></span></a>
+					奖品管理  <span class="glyphicon  glyphicon-arrow-down"></span></a>
 				</h4>
 					<div id="collapseOne" class="panel-collapse collapse  
-					<?php  if(strstr(__SELF__, 'addGoodsType')){echo ' in';} if(strstr(__SELF__, 'goodsTypeInfo')){echo ' in';} if(strstr(__SELF__, 'modifyGoodsType')){echo ' in';} if(strstr(__SELF__, 'searchGoodsType')){echo ' in';} if(strstr(__SELF__, 'addGoods')){echo ' in';} if(strstr(__SELF__, 'goodsInfo')){echo ' in';} if(strstr(__SELF__, 'modifyGoods')){echo ' in';} if(strstr(__SELF__, 'searchGoods')){echo ' in';} ?> ">
-				<a href="__APP__/GoodsType/addGoodsType" class="list-group-item"><span class="glyphicon glyphicon-circle-arrow-right"></span> 添加商品类别</a>
-				<a href="__APP__/GoodsType/goodsTypeInfo" class="list-group-item"><span class="glyphicon glyphicon-circle-arrow-right"></span> 商品类别列表</a>
-				<a href="__APP__/Goods/addGoods" class="list-group-item"><span class="glyphicon glyphicon-circle-arrow-right"></span> 添加商品</a>
-				<a href="__APP__/Goods/goodsInfo" class="list-group-item"><span class="glyphicon glyphicon-circle-arrow-right"></span> 商品列表</a>
+					<?php  if(strstr(__SELF__, 'addGoodsType')){echo ' in';} if(strstr(__SELF__, 'goodsTypeInfo')){echo ' in';} if(strstr(__SELF__, 'modifyGoodsType')){echo ' in';} if(strstr(__SELF__, 'searchGoodsType')){echo ' in';} if(strstr(__SELF__, 'addGoods')){echo ' in';} if(strstr(__SELF__, 'goodsInfo')){echo ' in';} if(strstr(__SELF__, 'modifyGoods')){echo ' in';} if(strstr(__SELF__, 'searchGoods')){echo ' in';} ?> ">				
+				<a href="__APP__/Goods/addGoods" class="list-group-item"><span class="glyphicon glyphicon-circle-arrow-right"></span> 添加奖品</a>
+				<a href="__APP__/Goods/goodsInfo" class="list-group-item"><span class="glyphicon glyphicon-circle-arrow-right"></span> 奖品列表</a>
 				
 				</div><?php endif; ?>
 
@@ -140,13 +138,13 @@
 		
 	<div class="diywap_right">
 
-		<div class="well well-sm">商品列表</div>
+		<div class="well well-sm">奖品列表</div>
 					
 					<form  name="searchGoodsForm" action="__APP__/Goods/searchGoods"  method="get" >
 		<div>
 		
-			商品类别名称:<input type='text' name='goodstypename' value="<?php echo ($_GET['goodstypename']); ?>"/>
-			商品名称: <input type='text' name='goodstitle' value="<?php echo ($_GET['goodstitle']); ?>"/>
+			奖项名称:<input type='text' name='prizename' value="<?php echo ($_GET['prizename']); ?>"/>
+			奖品名称: <input type='text' name='prizecontent' value="<?php echo ($_GET['prizecontent']); ?>"/>
 			 		 
 			<button type="submit" class="btn btn-primary btn-lg" id="search">查询</button>
 		</div>

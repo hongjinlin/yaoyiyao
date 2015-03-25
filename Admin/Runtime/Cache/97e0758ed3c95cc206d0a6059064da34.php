@@ -56,14 +56,12 @@
 			
 				<?php if($_SESSION['role']== 'level_1_admin' ): ?><h4>
 					<a class="list-group-item active navbar-link " data-toggle="collapse"  data-parent="#accordion" href="#collapseOne">
-					商品管理  <span class="glyphicon  glyphicon-arrow-down"></span></a>
+					奖品管理  <span class="glyphicon  glyphicon-arrow-down"></span></a>
 				</h4>
 					<div id="collapseOne" class="panel-collapse collapse  
-					<?php  if(strstr(__SELF__, 'addGoodsType')){echo ' in';} if(strstr(__SELF__, 'goodsTypeInfo')){echo ' in';} if(strstr(__SELF__, 'modifyGoodsType')){echo ' in';} if(strstr(__SELF__, 'searchGoodsType')){echo ' in';} if(strstr(__SELF__, 'addGoods')){echo ' in';} if(strstr(__SELF__, 'goodsInfo')){echo ' in';} if(strstr(__SELF__, 'modifyGoods')){echo ' in';} if(strstr(__SELF__, 'searchGoods')){echo ' in';} ?> ">
-				<a href="__APP__/GoodsType/addGoodsType" class="list-group-item"><span class="glyphicon glyphicon-circle-arrow-right"></span> 添加商品类别</a>
-				<a href="__APP__/GoodsType/goodsTypeInfo" class="list-group-item"><span class="glyphicon glyphicon-circle-arrow-right"></span> 商品类别列表</a>
-				<a href="__APP__/Goods/addGoods" class="list-group-item"><span class="glyphicon glyphicon-circle-arrow-right"></span> 添加商品</a>
-				<a href="__APP__/Goods/goodsInfo" class="list-group-item"><span class="glyphicon glyphicon-circle-arrow-right"></span> 商品列表</a>
+					<?php  if(strstr(__SELF__, 'addGoodsType')){echo ' in';} if(strstr(__SELF__, 'goodsTypeInfo')){echo ' in';} if(strstr(__SELF__, 'modifyGoodsType')){echo ' in';} if(strstr(__SELF__, 'searchGoodsType')){echo ' in';} if(strstr(__SELF__, 'addGoods')){echo ' in';} if(strstr(__SELF__, 'goodsInfo')){echo ' in';} if(strstr(__SELF__, 'modifyGoods')){echo ' in';} if(strstr(__SELF__, 'searchGoods')){echo ' in';} ?> ">				
+				<a href="__APP__/Goods/addGoods" class="list-group-item"><span class="glyphicon glyphicon-circle-arrow-right"></span> 添加奖品</a>
+				<a href="__APP__/Goods/goodsInfo" class="list-group-item"><span class="glyphicon glyphicon-circle-arrow-right"></span> 奖品列表</a>
 				
 				</div><?php endif; ?>
 
@@ -130,83 +128,64 @@
 				});
 			});
 		</script>
-<form class="form-horizontal" action='__APP__/Goods/doUpdate' method="post" name="myForm" enctype='multipart/form-data'/>
-			<input type='hidden' name='id' value="<?php echo ($data["id"]); ?>"/>
-			<div class="form-group">
+<form class="form-horizontal" action='__APP__/Goods/doUpdate' method="post"name="myForm" enctype='multipart/form-data'/>
+        
+            <input type='hidden' name='id' value="<?php echo ($data["id"]); ?>"/>
+            <div class="form-group">
 
-			 <label for="catename" class="col-sm-2 control-label">选择商品类别:</label>
+             <label for="catename" class="col-sm-2 control-label">奖项名称:</label>
 
-				 <div class="col-sm-4">
+                 <div class="col-sm-4">
 
-					<select name="goodstypeid" id="selectGoodsType">  
-						<?php if(is_array($goodsTypeList)): $i = 0; $__LIST__ = $goodsTypeList;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>">
-						<?php echo ($vo["goodstypename"]); ?>
-						</option><?php endforeach; endif; else: echo "" ;endif; ?>
-     				</select> 
+                    <input type="catename" name="prizename" value="<?php echo ($data["prizename"]); ?>" class="form-control" >
 
-				 </div>
+                 </div>
 
-			</div>
+            </div>
+            
+            <div class="form-group">
 
+                <label for="infodesc" class="col-sm-2 control-label">奖品名称:</label>
 
-			
+                 <div class="col-sm-4">
 
-			<div class="form-group">
+                <input type="catename" name="prizecontent" value="<?php echo ($data["prizecontent"]); ?>" class="form-control" >
 
-			 <label for="catename" class="col-sm-2 control-label">商品名称:</label>
+                </div>
 
-				 <div class="col-sm-4">
+            
 
-					<input type="catename" name="goodstitle"  class="form-control" value="<?php echo ($data["goodstitle"]); ?>">
+            </div>
+            
+            
+            
 
-				 </div>
+            <div class="form-group">
 
-			</div>
-			
-			<div class="form-group">
+             <label for="cateurl" class="col-sm-2 control-label">奖品数量:</label>
 
-				<label for="infodesc" class="col-sm-2 control-label">商品描述:</label>
+                 <div class="col-sm-4">
 
-				 <div class="col-sm-4">
+                    <input type='catename' class="form-control"  name='prizenum' value="<?php echo ($data["prizenum"]); ?>"/>
 
-				<textarea class="form-control" rows="3" name="goodscontent"/><?php echo ($data["goodscontent"]); ?></textarea>
+                 </div>
 
-				</div>
+            </div>
+            <div class="form-group">
 
-			
+             <label for="cateurl" class="col-sm-2 control-label">获奖概率:</label>
 
-			</div>
-			
-			<div class="form-group">
+                 <div class="col-sm-4">
 
-			 <label for="cateurl" class="col-sm-2 control-label">商品图片（尺寸240*240）:</label>
+                    <input type='catename' class="form-control"  name='chance' value="<?php echo ($data["chance"]); ?>"/>
 
-				 <div class="col-sm-4">
+                 </div>
 
-					<input type="catelogo" id="postpic"  name="goodspic"  readonly= "true" value="<?php echo ($data["goodspic"]); ?>" class="form-control" >
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-lg" id="save">保 存</button>
 
-						<iframe src="__APP__/Index/pcupload" height="35" frameborder="0" scrolling="no" width="400" ></iframe>
-
-				 </div>
-
-			</div>
-			
-			<div class="form-group">
-
-			 <label for="cateurl" class="col-sm-2 control-label">跳转链接:</label>
-
-				 <div class="col-sm-4">
-
-					<input type='catename' name='goodslink' class="form-control" value="<?php echo ($data["goodslink"]); ?>"/>
-
-				 </div>
-
-			</div>
-			
-			
-			<button type="submit" class="btn btn-primary btn-lg" id="save">保 存</button>
-
-			</form>
+            </form>
 
 			</div>
 

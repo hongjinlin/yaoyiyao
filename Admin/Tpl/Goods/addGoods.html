@@ -5,7 +5,7 @@
 
 	<div class="diywap_right">
 
-		<div class="well well-sm">添加商品</div>
+		<div class="well well-sm">添加奖品</div>
 
 
 <script>
@@ -15,21 +15,16 @@
 				});
 			});
 		</script>
-<form class="form-horizontal" action='__APP__/Goods/doAdd' method="post" name="myForm" enctype='multipart/form-data'/>
+<form class="form-horizontal" action='__APP__/Goods/doAdd' method="post"name="myForm" enctype='multipart/form-data'/>
+		
 			
 			<div class="form-group">
 
-			 <label for="catename" class="col-sm-2 control-label">选择商品类别:</label>
+			 <label for="catename" class="col-sm-2 control-label">奖项名称:</label>
 
 				 <div class="col-sm-4">
 
-					<select name="goodstypeid" id="selectGoodsType">  
-						<volist name="goodsTypeList" id="vo">   
-						<option value="<{$vo.id}>">   
-						<{$vo.goodstypename}>
-						</option>
-						</volist>
-     				</select> 
+					<input type="catename" name="prizename"  class="form-control" >
 
 				 </div>
 
@@ -37,23 +32,11 @@
 			
 			<div class="form-group">
 
-			 <label for="catename" class="col-sm-2 control-label">商品名称:</label>
+				<label for="infodesc" class="col-sm-2 control-label">奖品名称:</label>
 
 				 <div class="col-sm-4">
 
-					<input type="catename" name="goodstitle"  class="form-control" >
-
-				 </div>
-
-			</div>
-			
-			<div class="form-group">
-
-				<label for="infodesc" class="col-sm-2 control-label">商品描述:</label>
-
-				 <div class="col-sm-4">
-
-				<textarea class="form-control" rows="3" name="goodscontent"/></textarea>
+				<input type="catename" name="prizecontent"  class="form-control" >
 
 				</div>
 
@@ -63,32 +46,29 @@
 			
 			
 			
+
 			<div class="form-group">
 
-			 <label for="cateurl" class="col-sm-2 control-label">商品图片（尺寸240*240）:</label>
+			 <label for="cateurl" class="col-sm-2 control-label">奖品数量:</label>
 
 				 <div class="col-sm-4">
 
-					<input type="catelogo" id="postpic"  name="goodspic"  readonly= "true" class="form-control" >
-
-						<iframe src="__APP__/Index/pcupload" height="35" frameborder="0" scrolling="no" width="400" ></iframe>
+					<input type='catename' class="form-control"  name='prizenum'/>
 
 				 </div>
 
 			</div>
-			
 			<div class="form-group">
 
-			 <label for="cateurl" class="col-sm-2 control-label">跳转链接:</label>
+             <label for="cateurl" class="col-sm-2 control-label">获奖概率:</label>
 
-				 <div class="col-sm-4">
+                 <div class="col-sm-4">
 
-					<input type='catename' class="form-control"  name='goodslink'/>
+                    <input type='catename' class="form-control"  name='chance'/>
 
-				 </div>
+                 </div>
 
-			</div>
-			
+            </div>
 			
 			<button type="submit" class="btn btn-primary btn-lg" id="save">保 存</button>
 
