@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
-<title>摇一摇</title>
+<title><?php echo ($cfg_homepage_title); ?></title>
 
 
 <link rel="stylesheet" type="text/css" href="./public/css/shake.css" />
@@ -140,20 +140,7 @@ body{
 	color: white;
 	text-shadow:none;
 }
-.loginbox{
-    position:fixed;    
-    width:290px;
-    height:200px;
-    top:150px;
-    left:50%;
-    margin: -50px auto 0 -145px;
-    padding: 2px;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    
 
-}
 </style>
 
 <script type="text/javascript" src="./public/js/jquery-1.10.2.min.js"></script>
@@ -163,7 +150,6 @@ body{
 
 
 <script type="text/javascript">
-$(function(){alert(1111111);});
     //隐藏微信中网页底部导航栏
     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
         WeixinJSBridge.call('hideToolbar');
@@ -305,7 +291,11 @@ $(function(){alert(1111111);});
     }
 
     $(function () {
-
+        //if(<?php echo ($need_login); ?> == 1){            
+        //   loginbox();
+        //}else{
+        //    alert(2222);
+        //}
         var $game_status = $('.game-status');
         $game_status.height($game_status.width() + 20);
         audio1 = document.getElementById('audio1');
@@ -368,9 +358,7 @@ $(function(){alert(1111111);});
 
 
 
-<div id='loginbox' class='loginbox'>
-    
-</div>
+
 <div class="wap">
     
     <div class="game-status" onclick="javascript:void(0);">
@@ -406,7 +394,8 @@ $(function(){alert(1111111);});
     <div class="game-box page-descs">
         <h1>摇奖说明</h1>
         <div class="content page-desc">
-        	本活动日期为：2014年12月24日起<br><br>本活动仅为演示
+        	本活动日期为：<br/> <br/>
+            <?php echo ($cfg_game_star_time); ?> 至 <?php echo ($cfg_game_end_time); ?><br><br>本活动仅为演示
         </div>
         <h1 class="game-prize-list">奖项设置</h1>
         

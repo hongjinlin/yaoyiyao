@@ -3,6 +3,9 @@
 class IndexAction extends CommonAction {
 	public function index(){
 		$Config = M('Config');
+        $Goods = M('Prizeset');
+        $prize = $Goods->getField('prizename,prizecontent');
+        $this->assign();
 		//判断活动是否结束
 		if($this->isGameEnd()){
 			
@@ -16,65 +19,11 @@ class IndexAction extends CommonAction {
 		}else{
 			
 			//判断是否为微信授权模式，如果是，跳转微信授权页面，如果不是，判断用普通登录模式
-		
-		$cfg_isoauth_open = $Config->where("varname='cfg_isoauth_open'")->getField('value');
-		
+				
 		$need_login = 1; //默认需要弹登录框
 		
 		if($cfg_isoauth_open=='1'){
-			$cfg_oauth_cb_url = $Config->where("varname='cfg_oauth_cb_url'")->getField('value');
 			
-			$cfg_appid = $Config->where("varname='cfg_appid'")->getField('value');
-			$cfg_screct = $Config->where("varname='cfg_screct'")->getField('value');
-			
-			//授权判断
-			if (empty($openid)){
-				if (empty($_REQUEST["code"])) {
-					$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$cfg_appid."&redirect_uri=".$cfg_oauth_cb_url."&response_type=code&scope=snsapi_userinfo&state=blinq#wechat_redirect";
-
-					redirect($url);
-			
-				}else{
-					$code = $_REQUEST['code'];
-
-					$accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" . $cfg_appid . "&secret=" . $cfg_screct . "&code=$code&grant_type=authorization_code";
-					$ch = curl_init($accessTokenUrl);
-					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-					curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 5.1; rv:21.0) Gecko/20100101 Firefox/21.0');
-					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-					$info = curl_exec($ch);
-					$dataJson = json_decode($info, true);
-					$openid = $dataJson['openid'];
-					
-					session("wxid", $openid);
-					
-					//判断wxid是否已经配置过，如果存在，则不需要显示登陆框
-					$User = M('User');
-					$condition['wxid'] = $openid;
-					$userCount = $User->where($condition)->count();
-					
-					if($userCount>0){
-						$need_login = 0; //表示不需要弹出登陆框
-					}
-					
-					//获取用户ID
-					$uid = $User->where($condition)->getField('id');
-					session("uid",$uid);
-					
-					//获取数据
-// 					$userdata = $table->get_subscribe_res($openid);
-// 					$subscribed = $userdata['data']['subscribed'];
-// 					if($subscribed){
-// 						session("openid", $openid);
-			
-// 					}else{
-// 						$url="http://www.oschina.net/code/step1?catalog=";
-// 						echo $this->assign('url', $url)->fetch('redirect');
-// 						return;
-// 					}
-				}
-			}
 		}else{
 			//session(null);
 			if((isset($_SESSION['username']) && $_SESSION['username']!='')
@@ -83,7 +32,6 @@ class IndexAction extends CommonAction {
 				
 				$condition['username'] = $_SESSION['username'];
 				$condition['userphone'] = $_SESSION['userphone'];
-				$condition['wxid'] = 'none';
 				$userList = $User->where($condition)->find();
 				
 				if(count($userList)>0){
@@ -93,7 +41,6 @@ class IndexAction extends CommonAction {
 				//获取用户ID
 				//$uid = $User->where($condition)->getField('id');
 				session("uid",$userList['id']);
-				session("wxid", $userList['wxid']);
 				
 			}
 		}
@@ -187,60 +134,49 @@ class IndexAction extends CommonAction {
     public function doReg(){
     	
     	$Config = M('Config');
-    	$cfg_isoauth_open = $Config->where("varname='cfg_isoauth_open'")->getField('value');
+    	
     	
     	//如果是微信授权的，没注册的，直接添加一笔记录
-    	if($cfg_isoauth_open=='1'){
-    		$user_array['username']= $_POST['username'];
-    		$user_array['userphone'] = $_POST['userphone'];
-    		$user_array['wxid']= $_SESSION['wxid'];
-    		$user_array['regtime']= date("Y-m-d H:i:s");
-    		$User = M("User"); // 实例化User对象
-    		$lastId = $User->add($user_array);
-    		if(!$lastId){
-    			echo json_encode(array('status'=>'ng','message'=>'新增用户失败！'));
-    			exit;
-    		}
-    		 
-    		session("uid",$lastId);//获取最新用户ID
+    	if(!empty($_POST['username']) && !empty($_POST['userphone'])){
+            $User = M("User");
+
+            //检查用户手机号是否已注册过
+            $user_array['userphone'] =$_POST['userphone'];
+            $user_result=$User->where($user_array)->find();
+            
+            if($user_result != null){
+                $user_array['username']=$_POST['username'];
+                $user_array['wxid']='none';
+                $user_result=$User->where($user_array)->find();
+                    
+                if($user_result==null){//用户名错误了
+                    echo json_encode(array('status'=>'ng','message'=>'用户名错误！'));
+                    exit;
+                }else{
+                    
+                    session("uid",$user_result['id']);//获取最新用户ID
+                    session("username",$user_result['username']);
+                    session("userphone",$user_result['userphone']);
+                }
+            }else{
+        		$user_array['username']= $_POST['username'];
+        		$user_array['userphone'] = $_POST['userphone'];
+        		$user_array['regtime']= date("Y-m-d H:i:s");
+        		 // 实例化User对象
+        		$lastId = $User->add($user_array);
+        		if(!$lastId){
+        			echo json_encode(array('status'=>'ng','message'=>'新增用户失败！'));
+        			exit;
+        		}
+        		 
+        		session("uid",$lastId);//获取最新用户ID
+                session("username",$user_result['username']);
+                session("userphone",$user_result['userphone']);
+            }
     	}else{
-    		//判断用户的手机是否存在，如果手机存在，判断是否用户名输错，如果都不存在，注册新的一笔记录
-    		/* 判断用户是否存在 */
-    		$User = M("User"); // 实例化User对象
-    		$user_array['userphone'] =$_POST['userphone'];
-    		$user_result=$User->where($user_array)->find();
-    		
-    		if($user_result != null){
-    			$user_array['username']=$_POST['username'];
-    			$user_array['wxid']='none';
-    			$user_result=$User->where($user_array)->find();
-    				
-    			if($user_result==null){//用户名错误了
-    				echo json_encode(array('status'=>'ng','message'=>'用户名错误！'));
-    				exit;
-    			}else{
-    				
-    				session("uid",$user_result['id']);//获取最新用户ID
-    				session("username",$user_result['username']);
-    				session("userphone",$user_result['userphone']);
-    			}
-    		}else{
-    			$user_array['username']= $_POST['username'];
-    			$user_array['userphone'] = $_POST['userphone'];
-    			$user_array['wxid']= 'none';//没有微信ID
-    			$user_array['regtime']= date("Y-m-d H:i:s");
-    			$User = M("User"); // 实例化User对象
-    			$lastId = $User->add($user_array);
-    			if(!$lastId){
-    				echo json_encode(array('status'=>'ng','message'=>'新增用户失败！'));
-    				exit;
-    			}
-    			 
-    			session("uid",$lastId);//获取最新用户ID
-    			session("username",$_POST['username']);
-    			session("userphone",$_POST['userphone']);
-    		}
-    	}
+    	   echo json_encode(array('status'=>'ng','message'=>'姓名和手机号必填！'));
+           exit;
+        }
     	echo json_encode(array('status'=>'ok'));
     	exit;
     }

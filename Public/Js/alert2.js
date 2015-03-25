@@ -6,7 +6,7 @@ document.writeln("	position:fixed;");
 document.writeln("	display:none;");
 document.writeln("	top:150px;");
 document.writeln("	left:50%;");
-document.writeln("	 z-index:9999;");
+document.writeln("	 z-index:99999;");
 document.writeln("	margin:-50px auto 0 -145px;");
 document.writeln("	padding:2px;");
 //document.writeln("	border-radius:0.6em;");
