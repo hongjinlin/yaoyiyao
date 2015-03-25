@@ -1,6 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit();?>
-<script type="text/javascript" src="__PUBLIC__/Js/showdate.js"></script>
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 
 <html>
 
@@ -114,85 +112,59 @@
 		</div>	
 
 
-<script>
-				$(function(){
-				
-				//提交表单
-				$('img.search').click(function(){
-					$('form[name="searchExchangeForm"]').submit();
-				});
-				
-				$('#exportData').click(function(){
-					
-					var startdate='blank';
-					var enddate='blank';
-					var username='blank';
-					var userphone='blank';
-					
-					if($("#startdate").val()!=''){
-						startdate =$("#startdate").val();
-					}
-					
-					if($("#enddate").val()!=''){
-						enddate =$("#enddate").val();
-					}
-					
-					if($("#username").val()!=''){
-						username =$("#username").val();
-					}
-					
-					if($("#userphone").val()!=''){
-						userphone =$("#userphone").val();
-					}
-
-					window.location.href = "__APP__/User/exportExchangeData/startdate/"+startdate+"/enddate/"+enddate+"/username/"+username+"/userphone/"+userphone;
-				});
-			});
-		</script>		
 	<div class="diywap_right">
 
-		<div class="well well-sm">兑换记录查询</div>
-					
-					<form  name="searchExchangeForm" action="__APP__/User/searchExchange"  method="get" >
-		<div>
-			
-			用户名称:<input type='text' name='username' id="username" value="<?php echo ($_GET['username']); ?>"/>
-			用户手机: <input type='text' name='userphone' id="userphone" value="<?php echo ($_GET['userphone']); ?>"/>
-			 		 
-			<button type="submit" class="btn btn-primary btn-lg" id="search">查询</button>
-			<div class="btn btn-primary btn-lg" id="exportData">导出数据</div>
-		</div>
-		</form>
-		</br>
-		
-		<table class="table table-hover table-bordered">
-			<tr>
-				<th>兑换时间</th>
-				<th>用户名称</th>
-				<th>用户手机</th>
-				<th>用户成绩</th>
-				<th>兑换备注</th>
-				<th>操作管理员</th>
-			</tr>
-			<?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr class="active">
-					<td><?php echo ($vo["exchangedatetime"]); ?></td>
-					<td><?php echo ($vo["username"]); ?></td>
-					<td><?php echo ($vo["userphone"]); ?></td>
-					<td><?php echo ($vo["score"]); ?></td>
-					<td><?php echo ($vo["exchangenote"]); ?></td>
-					<td><?php echo ($vo["operationadmin"]); ?></td>
-				</tr><?php endforeach; endif; else: echo "" ;endif; ?>
+		<div class="well well-sm">兑换礼品</div>
 
-		</table>
-		
-		</br>
-		<div style="text-align:center;"><?php echo ($page); ?></div>
+
+			<script>	
+			
+			$(function(){
+				$('#save').click(function(){
+					if(confirm("确定要执行兑奖操作吗？"))
+				    {
+				        $('form[name="myForm"]').submit();
+				    }
+				    else
+				    {
+				        return false;
+				    }
+					
+				});
+			});
+		</script>
+<form class="form-horizontal" action='__APP__/User/doExchange' method="post" name="myForm" />
+			<input type='hidden' name='uid' value="<?php echo ($exchange_user_id); ?>"/>
+			<div class="form-group">
+
+			 <label for="catename" class="col-sm-2 control-label">兑奖用户:</label>
+
+				 <div class="col-sm-4">
+				 	
+						<?php echo ($exchange_user_name); ?>
+				 </div>
 
 			</div>
 
-		
+			<div class="form-group">
 
-</div>
+			 <label for="catename" class="col-sm-2 control-label">兑奖备注:</label>
+
+				 <div class="col-sm-4">
+
+					<textarea rows="10" cols="70" name="exchangenote" ></textarea >
+				 </div>
+
+			</div>
+			
+			
+			<div class="btn btn-primary btn-lg" id="save">确认兑奖</div>
+			</form>
+
+			</div>
+
+			</div>
+	</div>
 
 </body>
 

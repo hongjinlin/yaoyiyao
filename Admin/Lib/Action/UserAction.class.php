@@ -264,7 +264,7 @@
 		
 		public function exchangeInfo(){
 				
-			$queryStr ="select u.username as username,u.userphone as userphone,e.exchangedatetime as exchangedatetime,e.exchangenote as exchangenote,e.operationadmin as operationadmin ,s.score as score from tp_user u join tp_exchange e on u.id=e.uid join tp_score s on u.id=s.uid ";
+			$queryStr ="select u.username as username,u.userphone as userphone,e.exchangedatetime as exchangedatetime,e.exchangenote as exchangenote,e.operationadmin as operationadmin from tp_user u join tp_exchange e on u.id=e.uid";
 			
 			$Model = new Model(); // 实例化一个model对象 没有对应任何数据表
 			$queryResult = $Model->query($queryStr);
@@ -275,7 +275,7 @@
 				$Page       = new Page($count,C('EXCHANGE_PAGE_COUNT'));// 实例化分页类 传入总记录数和每页显示的记录数
 				$show       = $Page->show();// 分页显示输出
 				// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
-				$queryStr1 ="select u.username as username,u.userphone as userphone,e.exchangedatetime as exchangedatetime ,e.exchangenote as exchangenote,e.operationadmin as operationadmin,s.score as score from tp_user u join tp_exchange e on u.id=e.uid join tp_score s on u.id=s.uid order by e.exchangedatetime desc limit ".$Page->firstRow.",".$Page->listRows;
+				$queryStr1 ="select u.username as username,u.userphone as userphone,e.exchangedatetime as exchangedatetime,e.exchangenote as exchangenote,e.operationadmin as operationadmin from tp_user u join tp_exchange e on u.id=e.uid order by e.exchangedatetime desc limit ".$Page->firstRow.",".$Page->listRows;
 				
 				$list = $Model->query($queryStr1);
 				$this->assign('data',$list);// 赋值数据集
@@ -289,16 +289,7 @@
 		}
 		
 		public function searchExchange(){
-			$where=" where 1=1";
-			
-			if(!empty($_GET['startdate'])){
-					
-				$where.=" and DATE_FORMAT( e.exchangedatetime,  '%Y-%m-%d' ) >='".date("Y-m-d",strtotime($_GET['startdate']))."'";
-			}
-			
-			if(!empty($_GET['enddate'])){
-				$where.=" and DATE_FORMAT( e.exchangedatetime,  '%Y-%m-%d' ) <='".date("Y-m-d",strtotime($_GET['enddate']))."'";
-			}
+			$where=" where 1=1";			
 				
 			if(!empty($_GET['username'])){
 				$where.=" and u.username like '%".$_GET['username']."%'";
@@ -308,18 +299,18 @@
 				$where.=" and u.userphone like '%".$_GET['userphone']."%'";
 			}
 				
-			$queryStr ="select u.username as username,u.userphone as userphone,e.exchangedatetime as exchangedatetime ,e.exchangenote as exchangenote,e.operationadmin as operationadmin, s.score as score from tp_user u join tp_exchange e on u.id=e.uid join tp_score s on u.id=s.uid join tp_score s on u.id=s.uid".$where;
+			$queryStr ="select u.username as username,u.userphone as userphone,e.exchangedatetime as exchangedatetime,e.exchangenote as exchangenote,e.operationadmin as operationadmin from tp_user u join tp_exchange e on u.id=e.uid".$where." order by e.exchangedatetime desc";
 				
 				
 			$Model = new Model(); // 实例化一个model对象 没有对应任何数据表
 				
 			$queryResult = $Model->query($queryStr);
 				
-				
+				//var_dump($queryResult);exit;
 			if($queryResult!=null){
 			
 				//带入搜索参数
-				$parameter = 'userphone='.urlencode($_GET['userphone']).'&startdate='.urlencode($_GET['startdate']).'&enddate='.urlencode($_GET['enddate']).'&username='.urlencode($_GET['username']).'&userphone='.urlencode($_GET['userphone']);
+				$parameter = 'userphone='.urlencode($_GET['userphone']).'&username='.urlencode($_GET['username']).'&userphone='.urlencode($_GET['userphone']);
 			
 				import('ORG.Util.Page');// 导入分页类
 				$count      = count($queryResult);// 查询满足要求的总记录数
@@ -327,7 +318,7 @@
 				$show       = $Page->show();// 分页显示输出
 				// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
 				$where.=" order by e.exchangedatetime desc limit ".$Page->firstRow.",".$Page->listRows;
-				$queryStr1 ="select u.username as username,u.userphone as userphone,e.exchangedatetime as exchangedatetime ,e.exchangenote as exchangenote,e.operationadmin as operationadmin, s.score as score from tp_user u join tp_exchange e on u.id=e.uid join tp_score s on u.id=s.uid".$where;
+				$queryStr1 ="select u.username as username,u.userphone as userphone,e.exchangedatetime as exchangedatetime,e.exchangenote as exchangenote,e.operationadmin as operationadmin from tp_user u join tp_exchange e on u.id=e.uid".$where;
 				
 				$list = $Model->query($queryStr1);
 				$this->assign('data',$list);// 赋值数据集

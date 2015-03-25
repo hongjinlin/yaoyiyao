@@ -140,6 +140,20 @@ body{
 	color: white;
 	text-shadow:none;
 }
+.loginbox{
+    position:fixed;    
+    width:290px;
+    height:200px;
+    top:150px;
+    left:50%;
+    margin: -50px auto 0 -145px;
+    padding: 2px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    
+
+}
 </style>
 
 <script type="text/javascript" src="./public/js/jquery-1.10.2.min.js"></script>
@@ -149,7 +163,7 @@ body{
 
 
 <script type="text/javascript">
-
+$(function(){alert(1111111);});
     //隐藏微信中网页底部导航栏
     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
         WeixinJSBridge.call('hideToolbar');
@@ -354,7 +368,9 @@ body{
 
 
 
-
+<div id='loginbox' class='loginbox'>
+    
+</div>
 <div class="wap">
     
     <div class="game-status" onclick="javascript:void(0);">
