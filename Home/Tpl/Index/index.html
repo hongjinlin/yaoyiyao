@@ -230,7 +230,7 @@ body{
                 $.ajax({
                    
                     type: "post",
-                    url: "HAjax.aspx?id=61&t=rvmb8uisn585l989&action=yyy&o=oWUSptx-cdAQW3c2LDCeEsTgBURHY&tid=5&sd="+Math.random(),                  
+                    url: "__APP__/doLottery&sd="+Math.random(),                  
                    // contentType: "application/json; charset=utf-8",
                     cache : false,
                    dataType: "json",
@@ -241,14 +241,15 @@ body{
                     },
                     success: function (data) {
 
-                        if (data.success == false && data.hasGet==true) {
-                     
+                        if (data.success == false) {
+                            alert(222222);
                             Alertify.dialog.labels.ok = "确定";
                             Alertify.dialog.alert("摇奖失败", function () {
                                 location.reload();
                             });
                         } else {	
 							//摇晃成功后，返回结果，并且输出 - by 威虎小王
+                            alert(1111);
                             result = data;
                           
                             $('.loading_pop').hide();
@@ -368,7 +369,7 @@ body{
     <div class="game-btn" style="z-index: 9999;position: relative;">
         <div class="game-start" onclick="javascript:void(0);"><span class="game-start-btn">开始摇奖</span></div>        
         <div class="game-last-time">
-         <div style="margin-bottom:5px;">您今天已经摇奖<span class="game-last-times font-ffd700">0</span>次，每天最多有<span class="game-last-times font-ffd700">5</span>次摇奖机会</div>
+         <div style="margin-bottom:5px;">您今天已经摇奖<span class="game-last-times font-ffd700">0</span>次，每天最多有<span class="game-last-times font-ffd700"><{$cfg_game_times}></span>次摇奖机会</div>
             
         </div>
     </div>
@@ -400,31 +401,12 @@ body{
         <h1 class="game-prize-list">奖项设置</h1>
         
 		<ul class="prize-list game-list clearfix page-prize-list">
-        <li class="clearfix">
-		<span class="prize-name">一元话费</span>
-		<span class="prize-num">￥1</span>
-		</li>
-		
-		<li class="clearfix">
-		<span class="prize-name">二元话费</span>
-		<span class="prize-num">￥2</span>
-		</li>
-		
-		<li class="clearfix">
-		<span class="prize-name">三元话费</span>
-		<span class="prize-num">￥3</span>
-		</li>
-		
-		<li class="clearfix">
-		<span class="prize-name">五元话费</span>
-		<span class="prize-num">￥5</span>
-		</li>
-		
-		<li class="clearfix">
-		<span class="prize-name">谢谢参与</span>
-		<span class="prize-num">￥0</span>
-		</li>
-        
+        <foreach name="prize" item="vo" key='k' >
+            <li class="clearfix">
+        <span class="prize-name"><{$k}></span>
+        <span class="prize-num"><{$vo}></span>
+            </li>            
+        </foreach>
 		</ul>
     </div>    
 	
