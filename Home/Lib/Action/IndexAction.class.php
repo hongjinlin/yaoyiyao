@@ -148,7 +148,6 @@ class IndexAction extends CommonAction {
             
             if($user_result != null){
                 $user_array['username']=$_POST['username'];
-                $user_array['wxid']='none';
                 $user_result=$User->where($user_array)->find();
                     
                 if($user_result==null){//用户名错误了
@@ -314,15 +313,40 @@ class IndexAction extends CommonAction {
     }
 
     public function saveScore(){
-        //echo $_GET['tel'];
         //echo json_encode(array('success'=>true));exit;
-        $user = M('User');
-        $user->username = $_GET['tel'];
-        $user->userphone = $_GET['tel'];
-        $user->create();
-        $lastId = $user->add();
-        if($lastId > 0){
-            echo json_encode(array('success'=>true));exit;
+        if(!empty($_SESSION['uid'])){
+            $uid = $_SESSION['uid'];
+            $user = M('User');
+            $num = $user->where("id=$uid")->count();
+
+            //echo $num;
+            if($num >0){
+                $Score = M('Score');
+                $Score->uid = $_SESSION['uid'];
+                $Score->pid = $_GET['prizeid'];
+                $Score->gametime = date("Y-m-d H:i:s");
+                $Score->create();
+                $rzt = $Score->add();
+                if($rzt > 0){
+                    echo json_encode(array('success'=>true));exit;
+                }else{
+                    echo json_encode(array('success'=>false));exit;
+                }
+                
+            }else{
+                return false;
+            }
+
+        }else{
+            echo json_encode(array('success'=>false));exit;
         }
+        
+        //$user->username = $_GET['tel'];
+        //$user->userphone = $_GET['tel'];
+        //$user->create();
+        //$lastId = $user->add();
+        //if($lastId > 0){
+            
+        //}
     }
 }

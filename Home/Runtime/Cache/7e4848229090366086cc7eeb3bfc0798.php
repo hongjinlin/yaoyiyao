@@ -13,6 +13,8 @@
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/alertify.css" />
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/jquery.alerts.css" />
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.alerts.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/alert2.js"></script>
 
 
 <style>
@@ -143,7 +145,7 @@ body{
 
 </style>
 
-<script type="text/javascript" src="__PUBLIC__/Js/jquery-1.10.2.min.js"></script>
+
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.mobile.events.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.alerts.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/alertify.min.js"></script>
@@ -292,11 +294,11 @@ body{
     }
 
     $(function () {
-        //if(<?php echo ($need_login); ?> == 1){            
-        //   loginbox();
-        //}else{
-        //    alert(2222);
-        //}
+        if(<?php echo ($need_login); ?> == 1){            
+           loginbox();
+        }else{
+            //alert(2222);
+        
         var $game_status = $('.game-status');
         $game_status.height($game_status.width() + 20);
         audio1 = document.getElementById('audio1');
@@ -348,7 +350,7 @@ body{
                 }
             }, false);
         }
-
+        }
     });
 </script>
 </head>
@@ -384,8 +386,8 @@ body{
            <label for="username" class="input-label">你的兑奖SN码：<span class="red" id="sncode"></span></label>				
 			</div>
 			<div class="field-contain">
-				<label for="phone" class="input-label">请输入您的手机号码:</label>
-				<input type="tel" name="phone" id="phone" class="input-text" value="">
+				<label for="phone" class="input-label">请确认您的手机号码:</label>
+				<input type="tel" name="phone" id="phone" class="input-text" value="<?php echo (session('userphone')); ?>">
 				<span class="tip">*请务必填写正确，此手机号将作为您以后领奖的依据</span>
 			</div>
 			<button id="save-btn">保存</button>
@@ -443,8 +445,8 @@ body{
 	        $("#save-btn").on("click", function () {
 	            var $username = $("#username");
 	            var username = $username.val();
-	            var $phone = $("#phone");
-	            var phone = $phone.val();
+	            var phone = $("#phone");
+	            var phone = phone.val();
 	            if (username == "") {
 	                
 	                jAlert("请输入用户名!", '友情提示');	
@@ -454,7 +456,7 @@ body{
 	            if (phone == "") {
 	               
 	                jAlert("请输入手机号码!", '友情提示');	
-	                $phone.focus();
+	                $("#phone").focus();
 	                return false;
 	            }
 	            var regu = /^[0-9]{8,20}$/;
