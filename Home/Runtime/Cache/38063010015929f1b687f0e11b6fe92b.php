@@ -167,7 +167,7 @@ body{
     var stop = false;
     var stepCount = 0;
     var hasSend = false;
-    var prizeid = null;
+
 
 
     //处理摇奖结果--by 威虎小王
@@ -197,7 +197,7 @@ body{
 				//处理中奖的结果--by 威虎小王
 
                 $("#sncode").text(res.sn);
-                             $("#prizetype").text("您中了 "+ res.prizetype+":"+res.prizecontent);
+                             $("#prizetype").text("您中了"+ res.prizetype +"等奖");
                             $('.game-status').hide();
                             $('.game-btn').hide();
                             $('.loading_pop').hide();
@@ -230,7 +230,7 @@ body{
                 $.ajax({
                    
                     type: "post",
-                    url: "./doLottery",                  
+                    url: "./Index/doLottery&sd="+Math.random(),                  
                    // contentType: "application/json; charset=utf-8",
                     cache : false,
                    dataType: "json",
@@ -249,9 +249,9 @@ body{
                             });
                         } else {	
 							//摇晃成功后，返回结果，并且输出 - by 威虎小王
-                            
+                            alert(1111);
                             result = data;
-                            prizeid = data.prizeid;
+                          
                             $('.loading_pop').hide();
                             
                             pointResult(result);
@@ -467,20 +467,19 @@ body{
 	            }
 	            if (confirm("信息提交后不可修改，真的确定要提交吗？")) {
 	                var submitData = {
-	                    //id: "61",
-	                    //t: "rvmb8uisn585l989",
+	                    id: "61",
+	                    t: "rvmb8uisn585l989",
 	                    code: $("#sncode").text(),
-	                    tel: phone,                       
-                        prizeid: prizeid,
-	                    //action: "yyysj"
+	                    tel: phone,
+	                    action: "yyysj"
 	                };
-	                $.get('./saveScore', submitData,
+	                $.get('HAjax.aspx', submitData,
     function (data) {
         if (data.success == true) {
-           //alert('true');
+           
             jAlert("提交成功，谢谢您的参与", '友情提示');	
             return
-        } else { alert('error');}
+        } else { }
     },
     "json");
 	            }

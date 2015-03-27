@@ -245,7 +245,7 @@ class IndexAction extends CommonAction {
     
     public function doLottery(){
 
-
+        //echo json_encode(array('success'=>'true'));exit;
         /* 
          * 奖项数组 
          * 是一个二维数组，记录了所有本次抽奖的奖项信息， 
@@ -259,36 +259,7 @@ class IndexAction extends CommonAction {
         $Prize = M('Prizeset');
         $prize_arr = $Prize->select();
         
-         /* 
-         * 经典的概率算法， 
-         * $proArr是一个预先设置的数组， 
-         * 假设数组为：array(100,200,300，400)， 
-         * 开始是从1,1000 这个概率范围内筛选第一个数是否在他的出现概率范围之内，  
-         * 如果不在，则将概率空间，也就是k的值减去刚刚的那个数字的概率空间， 
-         * 在本例当中就是减去100，也就是说第二个数是在1，900这个范围内筛选的。 
-         * 这样 筛选到最终，总会有一个数满足要求。 
-         * 就相当于去一个箱子里摸东西， 
-         * 第一个不是，第二个不是，第三个还不是，那最后一个一定是。 
-         * 这个算法简单，而且效率非常 高， 
-         * 关键是这个算法已在我们以前的项目中有应用，尤其是大数据量的项目中效率非常棒。 
-         */  
-        function get_rand($proArr) {   
-            $result = '';    
-            //概率数组的总概率精度   
-            $proSum = array_sum($proArr);    
-            //概率数组循环   
-            foreach ($proArr as $key => $proCur) {   
-                $randNum = mt_rand(1, $proSum);   
-                if ($randNum <= $proCur) {   
-                    $result = $key;   
-                    break;   
-                } else {   
-                    $proSum -= $proCur;   
-                }         
-            }   
-            unset ($proArr);    
-            return $result;   
-        }
+        
 
          /* 
          * 每次前端页面的请求，PHP循环奖项设置数组， 
@@ -300,11 +271,58 @@ class IndexAction extends CommonAction {
         foreach ($prize_arr as $key => $val) {   
             $arr[$val['id']] = $val['chance'];   
         }   
-        $rid = get_rand($arr); //根据概率获取奖项id   
-        $res['yes'] = $Prize->where("id=$rid")->getField('prizename,prizecontent');
-        $res[success] = true;
-        echo json_encode($res);
-        var_dump($res);      
+        $rid = $this->get_rand($arr); //根据概率获取奖项id  
+        $res['prizeid'] = $rid;
+        $res['sn'] = rand(); 
+        $res['prizetype'] = $Prize->where("id=$rid")->getField('prizename');
+        $res['prizecontent'] = $Prize->where("id=$rid")->getField('prizecontent');
+        $res['success'] = true;
+        echo json_encode($res);exit;
+        //var_dump($res);      
 
+    }
+
+     /* 
+     * 经典的概率算法， 
+     * $proArr是一个预先设置的数组， 
+     * 假设数组为：array(100,200,300，400)， 
+     * 开始是从1,1000 这个概率范围内筛选第一个数是否在他的出现概率范围之内，  
+     * 如果不在，则将概率空间，也就是k的值减去刚刚的那个数字的概率空间， 
+     * 在本例当中就是减去100，也就是说第二个数是在1，900这个范围内筛选的。 
+     * 这样 筛选到最终，总会有一个数满足要求。 
+     * 就相当于去一个箱子里摸东西， 
+     * 第一个不是，第二个不是，第三个还不是，那最后一个一定是。 
+     * 这个算法简单，而且效率非常 高， 
+     * 关键是这个算法已在我们以前的项目中有应用，尤其是大数据量的项目中效率非常棒。 
+     */  
+    function get_rand($proArr) {   
+        $result = '';    
+        //概率数组的总概率精度   
+        $proSum = array_sum($proArr);    
+        //概率数组循环   
+        foreach ($proArr as $key => $proCur) {   
+            $randNum = mt_rand(1, $proSum);   
+            if ($randNum <= $proCur) {   
+                $result = $key;   
+                break;   
+            } else {   
+                $proSum -= $proCur;   
+            }         
+        }   
+        unset ($proArr);    
+        return $result;   
+    }
+
+    public function saveScore(){
+        //echo $_GET['tel'];
+        //echo json_encode(array('success'=>true));exit;
+        $user = M('User');
+        $user->username = $_GET['tel'];
+        $user->userphone = $_GET['tel'];
+        $user->create();
+        $lastId = $user->add();
+        if($lastId > 0){
+            echo json_encode(array('success'=>true));exit;
+        }
     }
 }

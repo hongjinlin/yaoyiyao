@@ -7,12 +7,12 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
 <title><{$cfg_homepage_title}></title>
-<load href="./public/css/font.css?v=20140906" />
-<load href="./public/css/weiba.new.css?v=20140906" />
-<load href="./public/css/shake.css" />
-<load href="./public/css/alertify.css" />
-<load href="./public/css/jquery.alerts.css" />
-<load href="./public/js/jquery.alerts.js" />
+<load href="__PUBLIC__/Css/font.css?v=20140906" />
+<load href="__PUBLIC__/Css/weiba.new.css?v=20140906" />
+<load href="__PUBLIC__/Css/shake.css" />
+<load href="__PUBLIC__/Css/alertify.css" />
+<load href="__PUBLIC__/Css/jquery.alerts.css" />
+<load href="__PUBLIC__/Js/jquery.alerts.js" />
 
 
 <style>
@@ -143,10 +143,10 @@ body{
 
 </style>
 
-<load href="./public/js/jquery-1.10.2.min.js" />
-<load href="./public/js/jquery.mobile.events.min.js" />
-<load href="./public/js/jquery.alerts.js" />
-<load href="./public/js/alertify.min.js" />
+<load href="__PUBLIC__/Js/jquery-1.10.2.min.js" />
+<load href="__PUBLIC__/Js/jquery.mobile.events.min.js" />
+<load href="__PUBLIC__/Js/jquery.alerts.js" />
+<load href="__PUBLIC__/Js/alertify.min.js" />
 
 
 <script type="text/javascript">
@@ -167,7 +167,7 @@ body{
     var stop = false;
     var stepCount = 0;
     var hasSend = false;
-
+    var prizeid = null;
 
 
     //处理摇奖结果--by 威虎小王
@@ -197,7 +197,7 @@ body{
 				//处理中奖的结果--by 威虎小王
 
                 $("#sncode").text(res.sn);
-                             $("#prizetype").text("您中了"+ res.prizetype +"等奖");
+                             $("#prizetype").text("您中了 "+ res.prizetype+":"+res.prizecontent);
                             $('.game-status').hide();
                             $('.game-btn').hide();
                             $('.loading_pop').hide();
@@ -230,7 +230,7 @@ body{
                 $.ajax({
                    
                     type: "post",
-                    url: "__APP__/doLottery&sd="+Math.random(),                  
+                    url: "./doLottery",                  
                    // contentType: "application/json; charset=utf-8",
                     cache : false,
                    dataType: "json",
@@ -249,9 +249,9 @@ body{
                             });
                         } else {	
 							//摇晃成功后，返回结果，并且输出 - by 威虎小王
-                            alert(1111);
+                            
                             result = data;
-                          
+                            prizeid = data.prizeid;
                             $('.loading_pop').hide();
                             
                             pointResult(result);
@@ -376,7 +376,7 @@ body{
 
     <div class="wrapper" id="result" style="display:none; z-index:100;">
     
-		<img class="bg" src="./public/images/info_bg.jpg" />
+		<img class="bg" src="__PUBLIC__/Images/info_bg.jpg" />
 		<div class="inner-cont">
 			<div class="qtitle">填写领奖的个人信息：</div>
 			<div class="field-contain">
@@ -429,16 +429,16 @@ body{
 	<div class="pop_mask" id="popMask" style="position:absolute;width:100%;height:100%;background-color:black;opacity:0.65;top:0;left:0;z-index:99999;"></div>
 </div>
     
-<audio id="audio1" src="./public/css/shake_sound_male.mp3" preload="auto">
+<audio id="audio1" src="__PUBLIC__/Css/shake_sound_male.mp3" preload="auto">
 </audio>
-<audio id="audio2" src="./public/css/shake_match.mp3" preload="auto">
+<audio id="audio2" src="__PUBLIC__/Css/shake_match.mp3" preload="auto">
 </audio>
-<audio id="audio3" src="./public/css/shake_fail.mp3" preload="auto">
+<audio id="audio3" src="__PUBLIC__/Css/shake_fail.mp3" preload="auto">
 </audio>
 	
 
 	<div id="loading" class="loading-mask">
-		<img class="gimg" src="./public/images/ajax-loader.gif">
+		<img class="gimg" src="__PUBLIC__/Images/ajax-loader.gif">
 	</div>
 	<script type="text/javascript">
 	    $(function () {
@@ -469,19 +469,20 @@ body{
 	            }
 	            if (confirm("信息提交后不可修改，真的确定要提交吗？")) {
 	                var submitData = {
-	                    id: "61",
-	                    t: "rvmb8uisn585l989",
+	                    //id: "61",
+	                    //t: "rvmb8uisn585l989",
 	                    code: $("#sncode").text(),
-	                    tel: phone,
-	                    action: "yyysj"
+	                    tel: phone,                       
+                        prizeid: prizeid,
+	                    //action: "yyysj"
 	                };
-	                $.get('HAjax.aspx', submitData,
+	                $.get('./saveScore', submitData,
     function (data) {
         if (data.success == true) {
-           
+           //alert('true');
             jAlert("提交成功，谢谢您的参与", '友情提示');	
             return
-        } else { }
+        } else { alert('error');}
     },
     "json");
 	            }
