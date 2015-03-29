@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit();?>
+
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -6,15 +6,15 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
-<title><?php echo ($cfg_homepage_title); ?></title>
-
-
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/shake.css" />
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/alertify.css" />
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/jquery.alerts.css" />
-<script type="text/javascript" src="__PUBLIC__/Js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/jquery.alerts.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/alert2.js"></script>
+<title><{$cfg_homepage_title}></title>
+<load href="__PUBLIC__/Css/font.css?v=20140906" />
+<load href="__PUBLIC__/Css/weiba.new.css?v=20140906" />
+<load href="__PUBLIC__/Css/shake.css" />
+<load href="__PUBLIC__/Css/alertify.css" />
+<load href="__PUBLIC__/Css/jquery.alerts.css" />
+<load href="__PUBLIC__/Js/jquery-1.10.2.min.js" />
+<load href="__PUBLIC__/Js/jquery.alerts.js" />
+<load href="__PUBLIC__/Js/alert2.js" />
 
 
 <style>
@@ -146,9 +146,9 @@ body{
 </style>
 
 
-<script type="text/javascript" src="__PUBLIC__/Js/jquery.mobile.events.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/jquery.alerts.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/alertify.min.js"></script>
+<load href="__PUBLIC__/Js/jquery.mobile.events.min.js" />
+<load href="__PUBLIC__/Js/jquery.alerts.js" />
+<load href="__PUBLIC__/Js/alertify.min.js" />
 
 
 <script type="text/javascript">
@@ -294,7 +294,7 @@ body{
     }
 
     $(function () {
-        if(<?php echo ($need_login); ?> == 1){            
+        if(<{$need_login}> == 1){            
            loginbox();
         }else{
             //alert(2222);
@@ -371,7 +371,7 @@ body{
     <div class="game-btn" style="z-index: 9999;position: relative;">
         <div class="game-start" onclick="javascript:void(0);"><span class="game-start-btn">开始摇奖</span></div>        
         <div class="game-last-time">
-         <div style="margin-bottom:5px;">您今天已经摇奖<span class="game-last-times font-ffd700">0</span>次，每天最多有<span class="game-last-times font-ffd700"><?php echo ($cfg_game_times); ?></span>次摇奖机会</div>
+         <div style="margin-bottom:5px;">您今天已经摇奖<span class="game-last-times font-ffd700">0</span>次，每天最多有<span class="game-last-times font-ffd700"><{$cfg_game_times}></span>次摇奖机会</div>
             
         </div>
     </div>
@@ -398,15 +398,17 @@ body{
         <h1>摇奖说明</h1>
         <div class="content page-desc">
         	本活动日期为：<br/> <br/>
-            <?php echo ($cfg_game_star_time); ?> 至 <?php echo ($cfg_game_end_time); ?><br><br>本活动仅为演示
+            <{$cfg_game_star_time}> 至 <{$cfg_game_end_time}><br><br>本活动仅为演示
         </div>
         <h1 class="game-prize-list">奖项设置</h1>
         
 		<ul class="prize-list game-list clearfix page-prize-list">
-        <?php if(is_array($prize)): foreach($prize as $k=>$vo): ?><li class="clearfix">
-        <span class="prize-name"><?php echo ($k); ?></span>
-        <span class="prize-num"><?php echo ($vo); ?></span>
-            </li><?php endforeach; endif; ?>
+        <foreach name="prize" item="vo" key='k' >
+            <li class="clearfix">
+        <span class="prize-name"><{$k}></span>
+        <span class="prize-num"><{$vo}></span>
+            </li>            
+        </foreach>
 		</ul>
     </div>    
 	
@@ -453,8 +455,9 @@ body{
 	                $username.focus();
 	                return false;
 	            }*/
-	            if (phone == "111") {
-	               
+	            if (phone == "") {
+	               	console.log(document.getElementById('phone'));
+	              	console.log(document.getElementById('phone').value;
 	                jAlert("请输入手机号码!", '友情提示');	
 	                //$phone.focus();
 	                return false;
@@ -463,7 +466,7 @@ body{
 	            var re = new RegExp(regu);
 	            if (!re.test(phone)) {
 	              	console.log(document.getElementById('phone'));
-	              	console.log(document.getElementById('phone').getAttribute('telnum'));
+	              	console.log(document.getElementById('phone').value;
 	                jAlert("请输入正确的手机号码!", '友情提示');	
 	                //$phone.focus();
 	                return false;

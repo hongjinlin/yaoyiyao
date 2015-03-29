@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
@@ -12,8 +12,8 @@
 <load href="__PUBLIC__/Css/shake.css" />
 <load href="__PUBLIC__/Css/alertify.css" />
 <load href="__PUBLIC__/Css/jquery.alerts.css" />
-<load href="__PUBLIC__/Js/jquery.alerts.js" />
 <load href="__PUBLIC__/Js/jquery-1.10.2.min.js" />
+<load href="__PUBLIC__/Js/jquery.alerts.js" />
 <load href="__PUBLIC__/Js/alert2.js" />
 
 
@@ -387,7 +387,7 @@ body{
 			</div>
 			<div class="field-contain">
 				<label for="phone" class="input-label">请确认您的手机号码:</label>
-				<input type="tel" name="phone" id="phone" class="input-text" value="<{$Think.session.userphone}>">
+				<input type="tel" name="phone" id="phone" class="input-text" value='111'/>
 				<span class="tip">*请务必填写正确，此手机号将作为您以后领奖的依据</span>
 			</div>
 			<button id="save-btn">保存</button>
@@ -445,28 +445,30 @@ body{
 	<script type="text/javascript">
 	    $(function () {
 	        $("#save-btn").on("click", function () {
-	            var $username = $("#username");
-	            var username = $username.val();
-	            var $phone = $("#phone");
-	            var phone = $phone.val();
-	            if (username == "") {
+	            //var $username = $("#username");
+	            //var username = $username.val();
+	            //var $phone = $("#phone");
+	            var phone = $("#phone").val();
+	            /*if (username == "") {
 	                
 	                jAlert("请输入用户名!", '友情提示');	
 	                $username.focus();
 	                return false;
-	            }
+	            }*/
 	            if (phone == "") {
-	               
+	               	console.log(document.getElementById('phone'));
+	              	console.log(document.getElementById('phone').value;
 	                jAlert("请输入手机号码!", '友情提示');	
-	                $phone.focus();
+	                //$phone.focus();
 	                return false;
 	            }
 	            var regu = /^[0-9]{8,20}$/;
 	            var re = new RegExp(regu);
 	            if (!re.test(phone)) {
-	              
+	              	console.log(document.getElementById('phone'));
+	              	console.log(document.getElementById('phone').value;
 	                jAlert("请输入正确的手机号码!", '友情提示');	
-	                $phone.focus();
+	                //$phone.focus();
 	                return false;
 	            }
 	            if (confirm("信息提交后不可修改，真的确定要提交吗？")) {
